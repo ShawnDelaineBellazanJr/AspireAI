@@ -1,0 +1,6 @@
+@ProjectName.Gateway_HostAddress = http://localhost:5064
+
+GET {{ProjectName.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
