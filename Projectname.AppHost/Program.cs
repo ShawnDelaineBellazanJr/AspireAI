@@ -1,11 +1,18 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<Projects.ProjectName_Api>("projectname-api");
 
-builder.AddProject<Projects.ProjectName_GrpcService>("projectname-grpcservice");
 
-builder.AddProject<Projects.ProjectName_Gateway>("projectname-gateway");
+var api = builder.AddProject<Projects.ProjectName_Api>("api");
 
-builder.AddProject<Projects.ProjectName_Worker>("projectname-worker");
+var grpc = builder.AddProject<Projects.ProjectName_GrpcService>("grpc");
+
+builder.AddProject<Projects.ProjectName_Gateway>("gateway")
+    .WithReference(api)
+    .WithReference(grpc);
+
+// Add Redis for distributed caching
+//var redis = builder.AddRedis("redis");
+
+builder.AddProject<Projects.ProjectName_Worker>("worker");
 
 builder.Build().Run();
